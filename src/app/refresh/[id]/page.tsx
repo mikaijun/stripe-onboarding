@@ -38,15 +38,13 @@ export default function Refresh() {
   return (
     <div className="container">
       <div className="banner">
-        <h2>Rocket Rides</h2>
+        <h2>MJファイナンス</h2>
       </div>
       <div className="content">
-        <h2>Add information to start accepting money</h2>
-        <p>Rocket Rides is the worlds leading air travel platform: join our team of pilots to help people travel faster.</p>
-        {error && <p className="error">Something went wrong!</p>}
+        {error && <p className="error">エラーです!</p>}
       </div>
       <div className="dev-callout">
-        {connectedAccountId && <p>Your connected account ID is: <code className="bold">{connectedAccountId}</code></p>}
+        {connectedAccountId && <p>アカウントID: <code className="bold">{connectedAccountId}</code></p>}
         {accountLinkCreatePending && <p>Creating a new Account Link...</p>}
       </div>
     </div>

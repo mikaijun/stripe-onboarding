@@ -13,10 +13,8 @@ export async function POST(req: Request) {
         return_url: `http://localhost:3000/return/${account}`,
         type: "account_onboarding",
       });
-      console.log(accountLink)
       return NextResponse.json({url: accountLink.url})
     } catch (error) {
-      console.log(error)
       return NextResponse.json({error: error })
     }
   }

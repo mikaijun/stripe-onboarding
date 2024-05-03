@@ -11,13 +11,12 @@ export default function Home() {
   return (
     <div className="container">
       <div className="banner">
-        <h2>Rocket Rides</h2>
+        <h2>MJファイナンス</h2>
       </div>
       <div className="content">
-        {!connectedAccountId && <h2>Get ready for take off</h2>}
-        {!connectedAccountId && <p>Rocket Rides is the worlds leading air travel platform: join our team of pilots to help people travel faster.</p>}
-        {connectedAccountId && <h2>Add information to start accepting money</h2>}
-        {connectedAccountId && <p>Matts Mats partners with Stripe to help you receive payments while keeping your personal and bank details secure.</p>}
+        {!connectedAccountId && <h2>Stripe連携</h2>}
+        {!connectedAccountId && <p>MJファイルナンスとStripe連携します。連携済みのアカウントは入れないでくださいね</p>}
+        {connectedAccountId && <h2>情報を追加してテスト送金の受け入れを開始する</h2>}
         {!accountCreatePending && !connectedAccountId && (
           <button
             onClick={async () => {
@@ -42,7 +41,7 @@ export default function Home() {
                 });
             }}
           >
-            Create an account!
+            連携する
           </button>
         )}
         {connectedAccountId && !accountLinkCreatePending && (
@@ -74,22 +73,17 @@ export default function Home() {
                 });
             }}
           >
-            Add information
+            情報を追加
           </button>
         )}
-        {error && <p className="error">Something went wrong!</p>}
+        {error && <p className="error">エラーです</p>}
         {(connectedAccountId || accountCreatePending || accountLinkCreatePending) && (
           <div className="dev-callout">
-            {connectedAccountId && <p>Your connected account ID is: <code className="bold">{connectedAccountId}</code></p>}
+            {connectedAccountId && <p>アカウントID: <code className="bold">{connectedAccountId}</code></p>}
             {accountCreatePending && <p>Creating a connected account...</p>}
             {accountLinkCreatePending && <p>Creating a new Account Link...</p>}
           </div>
         )}
-        <div className="info-callout">
-          <p>
-          This is a sample app for Stripe-hosted Connect onboarding. <a href="https://docs.stripe.com/connect/onboarding/quickstart?connect-onboarding-surface=hosted" target="_blank" rel="noopener noreferrer">View docs</a>
-          </p>
-        </div>
       </div>
     </div>
   );
