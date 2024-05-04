@@ -9,7 +9,10 @@ export default function Refresh({ params }: { params: { id: string } }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch("/api/account", { method: "POST" });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/account`,
+          { method: "POST" }
+        );
         const json = await res.json();
         const { url } = json;
         if (url) {

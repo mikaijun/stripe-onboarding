@@ -12,7 +12,10 @@ export default function Return({ params }: { params: { id: string } }) {
   const createProduct = useCallback(async () => {
     try {
       setIsLoading(true);
-      const res = await fetch(`/api/product/${params.id}`, { method: "POST" });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/${params.id}`,
+        { method: "POST" }
+      );
       const json = await res.json();
       setUrl(json.link.url);
     } catch (error) {
@@ -27,7 +30,7 @@ export default function Return({ params }: { params: { id: string } }) {
       try {
         setIsLoading(true);
         const res = await fetch(
-          `http://localhost:3000/api/retrieve/${params.id}`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/retrieve/${params.id}`,
           {
             method: "GET",
           }
