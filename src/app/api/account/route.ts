@@ -23,6 +23,7 @@ export async function POST() {
 
     return NextResponse.json({ url: accountLink.url }, { status: 200 });
   } catch (error) {
-    throw new Error();
+    console.error(error);
+    return NextResponse.json({ error: error }, { status: 500 });
   }
 }
