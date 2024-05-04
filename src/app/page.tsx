@@ -28,6 +28,7 @@ export default function Home() {
   return (
     <div>
       <h2>Stripe連携</h2>
+      {/* 実際プロダクトで連携する時はDBにStripeのアカウント情報があるかどうかを確認し、既に連携済みの場合はボタンではなくアカウント情報を載せます */}
       {!isLoading && <button onClick={handleConnect}>連携する</button>}
       {isError && <p>エラーが発生しました</p>}
       {isLoading && <div>{isLoading && <p>Loading ...</p>}</div>}

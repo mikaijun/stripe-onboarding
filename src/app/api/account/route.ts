@@ -3,13 +3,21 @@ import Stripe from "stripe";
 
 export async function POST() {
   try {
+    // 親(プラットフォーム管理者)のStripeのAPIキーを使ってStripeのクライアントを作成
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
-    const account = await stripe.accounts.create({});
 
+    // 子(利用者)のStripeアカウントを作成。ユニークなID(string)を生成するのが目的
+    // see: https://docs.stripe.com/api/accounts/create
+    const account = await stripe.accounts.create({});
+    const accountId = account.id;
+
+    // Stripeのアカウントリンクを作成
+    // ここからStripeのアカウントを連携させる(初めてStripeを利用する場合はアカウント作成も行う
+    // see: https://docs.stripe.com/api/account_links/create
     const accountLink = await stripe.accountLinks.create({
-      account: account.id,
-      refresh_url: `http://localhost:3000/refresh/${account.id}`,
-      return_url: `http://localhost:3000/return/${account.id}`,
+      account: accountId,
+      refresh_url: `http://localhost:3000/refresh/${accountId}`,
+      return_url: `http://localhost:3000/return/${accountId}`,
       type: "account_onboarding",
     });
 
