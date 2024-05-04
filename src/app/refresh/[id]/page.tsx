@@ -1,61 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 
-export default function Refresh() {
-  const {
-    query: { id: connectedAccountId },
-  } = useRouter();
-  const [accountLinkCreatePending, setAccountLinkCreatePending] =
-    useState(false);
-  const [error, setError] = useState(false);
-
-  React.useEffect(() => {
-    if (connectedAccountId) {
-      setAccountLinkCreatePending(true);
-      fetch("/api/account_link", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          account: connectedAccountId,
-        }),
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          setAccountLinkCreatePending(false);
-
-          const { url, error } = json;
-
-          if (url) {
-            window.location.href = url;
-          }
-
-          if (error) {
-            setError(true);
-          }
-        });
+export default function Refresh({ params }: { params: { id: string } }) {
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch("/api/account", { method: "POST" });
+        const json = await res.json();
+        const { url } = json;
+        if (url) {
+          window.location.href = url;
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }, [connectedAccountId]);
+    fetchData();
+  }, [params]);
 
-  return (
-    <div className="container">
-      <div className="banner">
-        <h2>MJファイナンス</h2>
-      </div>
-      <div className="content">
-        {error && <p className="error">エラーです!</p>}
-      </div>
-      <div className="dev-callout">
-        {connectedAccountId && (
-          <p>
-            アカウントID: <code className="bold">{connectedAccountId}</code>
-          </p>
-        )}
-        {accountLinkCreatePending && <p>Creating a new Account Link...</p>}
-      </div>
-    </div>
-  );
+  return <div>再実行中・・・</div>;
 }

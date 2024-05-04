@@ -17,10 +17,12 @@ export default function Home() {
         window.location.href = url;
       } else {
         setIsError(true);
+        setIsLoading(true);
       }
     } catch (error) {
       console.error(error);
       setIsError(true);
+      setIsLoading(true);
     }
   }, []);
   return (

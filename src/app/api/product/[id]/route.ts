@@ -7,7 +7,7 @@ export async function POST(_: Request, { params }: { params: { id: string } }) {
       stripeAccount: params.id,
     });
     const product = await stripe.products.create({
-      name: "Gold Plan222222",
+      name: "Gold Plan",
     });
 
     const price = await stripe.prices.create({

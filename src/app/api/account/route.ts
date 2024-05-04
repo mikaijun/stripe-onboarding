@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
-import { stripe } from "../../../lib/utils";
+import Stripe from "stripe";
 
 export async function POST() {
   try {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
     const account = await stripe.accounts.create({});
 
     const accountLink = await stripe.accountLinks.create({
