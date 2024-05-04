@@ -4,7 +4,8 @@ import React, { useState } from "react";
 
 export default function Home() {
   const [accountCreatePending, setAccountCreatePending] = useState(false);
-  const [accountLinkCreatePending, setAccountLinkCreatePending] = useState(false);
+  const [accountLinkCreatePending, setAccountLinkCreatePending] =
+    useState(false);
   const [error, setError] = useState(false);
   const [connectedAccountId, setConnectedAccountId] = useState();
 
@@ -15,8 +16,14 @@ export default function Home() {
       </div>
       <div className="content">
         {!connectedAccountId && <h2>Stripe連携</h2>}
-        {!connectedAccountId && <p>MJファイルナンスとStripe連携します。連携済みのアカウントは入れないでくださいね</p>}
-        {connectedAccountId && <h2>情報を追加してテスト送金の受け入れを開始する</h2>}
+        {!connectedAccountId && (
+          <p>
+            MJファイルナンスとStripe連携します。連携済みのアカウントは入れないでくださいね
+          </p>
+        )}
+        {connectedAccountId && (
+          <h2>情報を追加してテスト送金の受け入れを開始する</h2>
+        )}
         {!accountCreatePending && !connectedAccountId && (
           <button
             onClick={async () => {
@@ -77,9 +84,15 @@ export default function Home() {
           </button>
         )}
         {error && <p className="error">エラーです</p>}
-        {(connectedAccountId || accountCreatePending || accountLinkCreatePending) && (
+        {(connectedAccountId ||
+          accountCreatePending ||
+          accountLinkCreatePending) && (
           <div className="dev-callout">
-            {connectedAccountId && <p>アカウントID: <code className="bold">{connectedAccountId}</code></p>}
+            {connectedAccountId && (
+              <p>
+                アカウントID: <code className="bold">{connectedAccountId}</code>
+              </p>
+            )}
             {accountCreatePending && <p>Creating a connected account...</p>}
             {accountLinkCreatePending && <p>Creating a new Account Link...</p>}
           </div>

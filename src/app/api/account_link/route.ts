@@ -3,7 +3,7 @@ import { stripe } from "../../../lib/utils";
 
 export async function POST(req: Request) {
   if (req.method === "POST") {
-    const json = (await req.json()) as any
+    const json = (await req.json()) as any;
     try {
       const { account } = json;
 
@@ -13,9 +13,9 @@ export async function POST(req: Request) {
         return_url: `http://localhost:3000/return/${account}`,
         type: "account_onboarding",
       });
-      return NextResponse.json({url: accountLink.url})
+      return NextResponse.json({ url: accountLink.url });
     } catch (error) {
-      return NextResponse.json({error: error })
+      return NextResponse.json({ error: error });
     }
   }
 }

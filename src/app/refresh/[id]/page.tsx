@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 export default function Refresh() {
-  const {query: {id: connectedAccountId}} = useRouter();
-  const [accountLinkCreatePending, setAccountLinkCreatePending] = useState(false);
+  const {
+    query: { id: connectedAccountId },
+  } = useRouter();
+  const [accountLinkCreatePending, setAccountLinkCreatePending] =
+    useState(false);
   const [error, setError] = useState(false);
 
   React.useEffect(() => {
     if (connectedAccountId) {
       setAccountLinkCreatePending(true);
-        fetch("/api/account_link", {
+      fetch("/api/account_link", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +36,7 @@ export default function Refresh() {
           }
         });
     }
-  }, [connectedAccountId])
+  }, [connectedAccountId]);
 
   return (
     <div className="container">
@@ -44,7 +47,11 @@ export default function Refresh() {
         {error && <p className="error">エラーです!</p>}
       </div>
       <div className="dev-callout">
-        {connectedAccountId && <p>アカウントID: <code className="bold">{connectedAccountId}</code></p>}
+        {connectedAccountId && (
+          <p>
+            アカウントID: <code className="bold">{connectedAccountId}</code>
+          </p>
+        )}
         {accountLinkCreatePending && <p>Creating a new Account Link...</p>}
       </div>
     </div>
