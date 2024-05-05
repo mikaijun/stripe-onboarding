@@ -85,7 +85,7 @@ export default function Return({ params }: { params: { id: string } }) {
           <div style={{ marginTop: "16px" }}>件名</div>
           <input onChange={handleChangeName} />
           <div style={{ marginTop: "32px" }}>
-            <button onClick={createProduct}>商品作成する</button>
+            <button onClick={createProduct}>決済URL生成</button>
           </div>
         </div>
       )}

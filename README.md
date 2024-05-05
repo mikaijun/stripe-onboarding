@@ -1,6 +1,9 @@
 ## このリポジトリに関して
 
-Stripe Connect&Next.jsを使って決済用URLを発行するサンプルサイト
+下記記事のサンプルリポジトリ。
+Stripe Connect&Next.jsを使って決済用URLを発行します
+
+https://qiita.com/miumi/items/af7f1c6a40aa05f4f2ec
 
 ## Node.jsインストール
 
