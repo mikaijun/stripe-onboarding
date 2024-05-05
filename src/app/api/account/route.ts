@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-export async function POST() {
+export type CreateAccountResponse = {
+  url: string;
+  message?: string;
+};
+
+export async function POST(): Promise<NextResponse<CreateAccountResponse>> {
   try {
     // 親(プラットフォーム管理者)のStripeのAPIキーを使ってStripeのクライアントを作成
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
@@ -22,8 +27,11 @@ export async function POST() {
     });
 
     return NextResponse.json({ url: accountLink.url }, { status: 200 });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: error }, { status: 500 });
+  } catch (e) {
+    const error = e as Error;
+    return NextResponse.json(
+      { url: "", message: error.message || "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

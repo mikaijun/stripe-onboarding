@@ -1,23 +1,28 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
+export type CreateProductResponse = {
+  url: string;
+  message?: string;
+};
+
 export async function POST(
   request: Request,
   { params }: { params: { id: string } }
-) {
+): Promise<NextResponse<CreateProductResponse>> {
   const json = await request.json();
   const unit_amount = Number(json.price);
 
   if (!Number.isInteger(unit_amount)) {
     return NextResponse.json(
-      { message: "金額は整数で入力してください" },
+      { url: "", message: "金額は整数で入力してください" },
       { status: 400 }
     );
   }
 
   if (0 >= unit_amount) {
     return NextResponse.json(
-      { message: "金額は0より大きい金額で入力してください" },
+      { url: "", message: "金額は0より大きい金額で入力してください" },
       { status: 400 }
     );
   }
@@ -50,11 +55,11 @@ export async function POST(
       { stripeAccount: params.id }
     );
 
-    return NextResponse.json({ link }, { status: 200 });
+    return NextResponse.json({ url: link.url }, { status: 200 });
   } catch (e) {
     const error = e as Error;
     return NextResponse.json(
-      { message: error.message || "Internal Server Error" },
+      { url: "", message: error.message || "Internal Server Error" },
       { status: 500 }
     );
   }

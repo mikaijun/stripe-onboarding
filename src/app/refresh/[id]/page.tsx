@@ -1,5 +1,6 @@
 "use client";
 
+import { CreateAccountResponse } from "@/app/api/account/route";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -13,7 +14,7 @@ export default function Refresh({ params }: { params: { id: string } }) {
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/account`,
           { method: "POST" }
         );
-        const json = await res.json();
+        const json = (await res.json()) as CreateAccountResponse;
         const { url } = json;
         if (url) {
           window.location.href = url;

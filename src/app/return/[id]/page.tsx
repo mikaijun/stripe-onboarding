@@ -1,5 +1,7 @@
 "use client";
 
+import { CreateProductResponse } from "@/app/api/product/[id]/route";
+import { RetrieveResponse } from "@/app/api/retrieve/[id]/route";
 import Link from "next/link";
 import React, { useCallback, useEffect, useState } from "react";
 
@@ -34,15 +36,16 @@ export default function Return({ params }: { params: { id: string } }) {
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/${params.id}`,
         { method: "POST", body: JSON.stringify(data) }
       );
-      const json = await res.json();
+      const json = (await res.json()) as CreateProductResponse;
       if (res.status === 200) {
-        setUrl(json.link.url);
+        setUrl(json.url);
+        setIsLoading(false);
       } else {
         setErrorMessage(json.message ?? "エラーが発生しました");
+        setIsLoading(false);
       }
     } catch (error) {
       console.error(error);
-    } finally {
       setIsLoading(false);
     }
   }, [params, price, name]);
@@ -57,9 +60,9 @@ export default function Return({ params }: { params: { id: string } }) {
             method: "GET",
           }
         );
-        const json = await res.json();
+        const json = (await res.json()) as RetrieveResponse;
         if (res.status === 200) {
-          setAccountId(json.account.id);
+          setAccountId(json.accountId);
         } else {
           setErrorMessage(json.message ?? "エラーが発生しました");
         }

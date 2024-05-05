@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useState } from "react";
+import { CreateAccountResponse } from "./api/account/route";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -14,7 +15,7 @@ export default function Home() {
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/account`,
         { method: "POST" }
       );
-      const json = await res.json();
+      const json = (await res.json()) as CreateAccountResponse;
       const { url } = json;
       if (url) {
         window.location.href = url;
